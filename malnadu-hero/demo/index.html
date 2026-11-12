@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Malnadu Kitchen | Hero Component Demo</title>
+<link rel="stylesheet" href="../src/hero.css">
+<style>
+  @font-face {
+    font-family: 'Lastik';
+    src: url('fonts/lastik.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Gabarito';
+    src: url('fonts/gabarito.woff2') format('woff2');
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --mh-bg: #FAF6F0;
+    --mh-text: #231916;
+    --mh-muted: #67554C;
+    --mh-eyebrow: #762326;
+    --mh-accent: #762326;
+    --mh-font-display: 'Lastik', Georgia, serif;
+    --mh-font-body: 'Gabarito', sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: #FAF6F0;
+    color: #231916;
+    font-family: 'Gabarito', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Fixed subtle header */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 36px;
+    background: rgba(250, 246, 240, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(64, 47, 41, 0.08);
+  }
+  .site-nav .brand {
+    font-family: 'Lastik', Georgia, serif;
+    font-size: 21px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: #231916;
+    text-decoration: none;
+  }
+  .site-nav .nav-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #762326;
+    background: rgba(118, 35, 38, 0.08);
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+
+  #hero {
+    --mh-offset: 65px;
+    --mh-bottom-pad: 120px;
+    --mh-font-display: 'Lastik', Georgia, serif;
+    --mh-font-body: 'Gabarito', sans-serif;
+  }
+
+  /* Floating Menu Card representing the actual site's menu button */
+  .floating-menu-anchor {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    pointer-events: auto;
+  }
+
+  .floating-menu-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+    background: #231916;
+    color: #FAF6F0;
+    border-radius: 999px;
+    box-shadow: 0 16px 40px rgba(35, 25, 22, 0.28), 0 4px 12px rgba(35, 25, 22, 0.15);
+    border: 1px solid rgba(250, 246, 240, 0.12);
+    text-decoration: none;
+    transition: transform .25s cubic-bezier(.2, .9, .3, 1), box-shadow .25s ease;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .floating-menu-card:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 22px 50px rgba(35, 25, 22, 0.36), 0 6px 16px rgba(35, 25, 22, 0.2);
+  }
+  .floating-menu-card .menu-pill {
+    background: #762326;
+    color: #FAF6F0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .floating-menu-card .menu-text {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .floating-menu-card .menu-arrow {
+    display: inline-block;
+    transition: transform .2s ease;
+  }
+  .floating-menu-card:hover .menu-arrow {
+    transform: translateY(2px);
+  }
+
+  /* Scroll hint to guide user */
+  .scroll-hint {
+    position: fixed;
+    bottom: 84px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 39;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #762326;
+    opacity: 0.85;
+    pointer-events: none;
+    animation: bounce 2s infinite ease-in-out;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(4px); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="#" class="brand">Malnadu Kitchen</a>
+  <span class="nav-badge">Kompally · Hyderabad</span>
+</nav>
+
+<!-- Hero Section with Pinned Scroll Track -->
+<section id="hero">
+  <noscript><h1>Taste of Telangana</h1></noscript>
+</section>
+
+<!-- Scroll guidance hint -->
+<div class="scroll-hint">Scroll down to see text transition & food drift ↓</div>
+
+<!-- Floating Menu Card (resting with ample breathing room above the bottom) -->
+<div class="floating-menu-anchor" id="floating-menu">
+  <div class="floating-menu-card">
+    <span class="menu-pill">Menu</span>
+    <span class="menu-text">Claypot Biryanis & Curries</span>
+    <span class="menu-arrow">↓</span>
+  </div>
+</div>
+
+<script type="module">
+import { createHero } from '../src/hero.js';
+
+// Real Malnadu food items from user's folder
+const foodItems = [
+  { src: 'img/foods1.webp', title: 'Pothellu Biryani', meta: 'Claypot Special' },
+  { src: 'img/foods2.jpg', title: 'Naatu Kodi Pulusu', meta: 'Fiery Curry' },
+  { src: 'img/foods3.jpg', title: 'Gongura Mamsam', meta: 'Telangana Heritage' },
+  { src: 'img/foods4.webp', title: 'Bagara Rice & Dalcha', meta: 'Deccan Classic' },
+  { src: 'img/foods5.webp', title: 'Kodi Vepudu', meta: 'Claypot Roast' },
+  { src: 'img/foods6.webp', title: 'Chapala Pulusu', meta: 'Tamarind Fish' },
+  { src: 'img/foods7.webp', title: 'Jowar Roti Thali', meta: 'Traditional' },
+  { src: 'img/foods8.webp', title: 'Mirchi Ka Salan', meta: 'Regional Spices' },
+  { src: 'img/foods9.webp', title: 'Double Ka Meetha', meta: 'Royal Dessert' },
+  { src: 'img/foods10.jpg', title: 'Malnadu Special Thali', meta: 'Signature Feast' }
+];
+
+createHero(document.getElementById('hero'), {
+  theme: 'light',
+  pin: true,
+  trackHeight: '250vh',
+  bottomPad: 120, // generous bottom clearance for the floating menu card
+  
+  // State 1 Text: Visible at top of page
+  eyebrow: 'Malnadu Kitchen · Kompally, Hyderabad',
+  title: 'Taste of\nTelangana',
+  subtitle: '★ 4.5 on Google Maps · (8,943 reviews)',
+  proof: 'Handcrafted regional flavours',
+  
+  // State 2 Text: Activates smoothly as user scrolls down
+  eyebrow2: 'Our Culinary Philosophy',
+  title2: 'Authentic Telangana dishes\nprepared with regional spices,\ntradition, and passion.',
+  subtitle2: 'Slow-cooked in seasoned claypots with hand-ground masalas in Kompally, Hyderabad.',
+  proof2: 'Claypot Biryanis · Naatu Kodi Pulusu · Jowar Rotis',
+
+  // Regional Telangana rich tones
+  colors: ['#231916', '#762326', '#b4562f', '#8c282b'],
+  hold: 2.2,
+  colorDuration: 0.8,
+  
+  items: foodItems,
+  footer: null,
+});
+</script>
+</body>
+</html>

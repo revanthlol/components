@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Testimonials component demo</title>
+    <meta name="description" content="Demo page for the reusable testimonials carousel.">
+    <link rel="preload" href="assets/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/inter-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="testimonials.css">
+    <style>
+      html, body { margin: 0; background: #070707; }
+      main { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 30px 0; }
+      .wrap { width: 66%; }
+      @media (max-width: 720px) { .wrap { width: calc(100% - 40px); } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Testimonials</h1>
+      <div class="wrap">
+        <div id="testimonials"></div>
+      </div>
+    </main>
+
+    <script src="testimonials.js"></script>
+    <script>
+      // Template placeholder content from the Framer file. Replace with real testimonials before shipping.
+      new Testimonials("#testimonials", {
+        items: [
+          {
+            quote: "\u201CThe collaboration felt clear, structured, and refreshingly straightforward from the very beginning. Our ideas were not only understood but translated into a design that genuinely reflects who we are. We were especially impressed by how quickly the initial concepts developed into a cohesive and polished brand experience.\u201D",
+            name: "Olivia Bennett",
+            byline: "Founder, Northline Studio",
+            image: "assets/avatars/olivia-bennett.avif",
+            imageZoom: 1.2,
+          },
+          {
+            quote: "\u201CWe had a rough vision but lacked a clear visual direction. Through thoughtful questions and a focused creative process, we developed a brand that feels professional while still having personality. The final result exceeded our expectations and works beautifully across every platform and customer touchpoint.\u201D",
+            name: "Ethan Parker",
+            byline: "Marketing Director, Velora Labs",
+            image: "assets/avatars/ethan-parker.avif",
+          },
+          {
+            quote: "\u201CFrom the first workshop to the final handoff, we felt supported and understood throughout the entire process. Every decision was explained clearly, and our feedback was integrated thoughtfully. The result is a brand that feels more modern, confident, and genuinely aligned with our company\u2019s identity.\u201D",
+            name: "Sophie Mitchell",
+            byline: "Co-Founder, Morrow Collective",
+            image: "assets/avatars/sophie-mitchell.avif",
+          },
+          {
+            quote: "\u201CThe entire process was remarkably efficient without sacrificing attention to detail or creative depth. The ability to simplify complex ideas and focus on what truly matters was especially valuable. Our new brand identity feels refined, distinctive, and gives our team a clear direction for future growth.\u201D",
+            name: "Daniel Foster",
+            byline: "Managing Director, Aven & Co.",
+            image: "assets/avatars/daniel-foster.avif",
+          },
+        ],
+        duration: 6,
+      });
+    </script>
+  </body>
+</html>

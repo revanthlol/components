@@ -1,0 +1,164 @@
+[
+  {
+    "url": "https://dynamic-island-nav.framer.website/",
+    "status": 200,
+    "mime": "text/html",
+    "bytes": 112884
+  },
+  {
+    "url": "https://events.framer.com/script?v=2",
+    "status": 0,
+    "mime": "x-unknown",
+    "bytes": 0
+  },
+  {
+    "url": "https://framerusercontent.com/sites/JUXmrQ73MAjFsjdgZsAdJ/rolldown-runtime.Dh6celcD.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 629
+  },
+  {
+    "url": "https://framerusercontent.com/sites/JUXmrQ73MAjFsjdgZsAdJ/react.iNMCLRE-.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 144702
+  },
+  {
+    "url": "https://framerusercontent.com/sites/JUXmrQ73MAjFsjdgZsAdJ/framer.BxtK2Tvw.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 405307
+  },
+  {
+    "url": "https://framerusercontent.com/sites/JUXmrQ73MAjFsjdgZsAdJ/motion.BCqv8tOt.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 148740
+  },
+  {
+    "url": "https://framerusercontent.com/sites/JUXmrQ73MAjFsjdgZsAdJ/8yp822c459w5ZTgzZDlX6T4GLwOwZizPsxMYa1cky24.DTQOq4uU.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 72934
+  },
+  {
+    "url": "https://framerusercontent.com/sites/JUXmrQ73MAjFsjdgZsAdJ/shared-lib.BeMbPYWl.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 1546
+  },
+  {
+    "url": "https://framerusercontent.com/sites/JUXmrQ73MAjFsjdgZsAdJ/script_main.C-J-vMfa.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 5908
+  },
+  {
+    "url": "https://framerusercontent.com/assets/yDtI2UI8XcEg1W2je9XPN3Noo.woff2",
+    "status": 200,
+    "mime": "font/woff2",
+    "bytes": 28088
+  },
+  {
+    "url": "https://framerusercontent.com/assets/UjlFhCnUjxhNfep4oYBPqnEssyo.woff2",
+    "status": 200,
+    "mime": "font/woff2",
+    "bytes": 27996
+  },
+  {
+    "url": "https://framerusercontent.com/sites/icons/default-favicon-dark.v1.png",
+    "status": 200,
+    "mime": "image/png",
+    "bytes": 227
+  },
+  {
+    "url": "https://framer.com/edit/init.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 8323
+  },
+  {
+    "url": "https://framerusercontent.com/sites/JUXmrQ73MAjFsjdgZsAdJ/PX9hIOIVM.BRax14-D.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 19649
+  },
+  {
+    "url": "https://app.framerstatic.com/chunk-CS7BPPVU.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 4043
+  },
+  {
+    "url": "https://framer.com/edit?framerSiteId=e3c234b0420bfaf6b123ac5bb19b70811dc551293023fbad71378c75615a8b33&source=dynamic-island-nav.framer.website&features=%7B%22editorBarDisableFrameAncestorsSecurity%22%3Afalse%2C%22onPageLocalizationSupport%22%3Atrue%2C%22onPageMoveTool%22%3Atrue%2C%22onPageRichTextBlockSelection%22%3Atrue%7D&loadStart=1792842679542",
+    "status": 200,
+    "mime": "text/html",
+    "bytes": 2933
+  },
+  {
+    "url": "https://framer.com/bootstrap.13ebf9e2e53139866e3c96f06999f3b3abf821ae.js",
+    "status": 200,
+    "mime": "application/javascript",
+    "bytes": 1343
+  },
+  {
+    "url": "https://app.framerstatic.com/chunk-BEAJFPMP.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 1798
+  },
+  {
+    "url": "https://app.framerstatic.com/chunk-YRQ7G4QH.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 772
+  },
+  {
+    "url": "https://app.framerstatic.com/chunk-WOEOGJ2W.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 209
+  },
+  {
+    "url": "https://app.framerstatic.com/chunk-WLHSDIGQ.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 3858
+  },
+  {
+    "url": "https://app.framerstatic.com/editorbar.IPPCEFEB.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 2300
+  },
+  {
+    "url": "https://api.framer.com/auth/web/access-token?source=editorbar",
+    "status": 200,
+    "mime": "application/json",
+    "bytes": 977
+  },
+  {
+    "url": "https://app.framerstatic.com/esm-GWBOIHES.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 239
+  },
+  {
+    "url": "https://api.framer.com/edit/sites/e3c234b0420bfaf6b123ac5bb19b70811dc551293023fbad71378c75615a8b33/access",
+    "status": 404,
+    "mime": "application/json",
+    "bytes": 135
+  },
+  {
+    "url": "https://api.framer.com/edit/sites/e3c234b0420bfaf6b123ac5bb19b70811dc551293023fbad71378c75615a8b33/access",
+    "status": 204,
+    "mime": "x-unknown",
+    "bytes": 0
+  },
+  {
+    "url": "https://app.framerstatic.com/chunk-YS3B4HMG.mjs",
+    "status": 200,
+    "mime": "text/javascript",
+    "bytes": 1021
+  }
+]

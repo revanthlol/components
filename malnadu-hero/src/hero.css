@@ -1,0 +1,376 @@
+/* Malnadu hero. All colours and fonts are CSS variables, override them on the host element. */
+:root {
+  --mh-bg: #FAF6F0;
+  --mh-text: #231916;
+  --mh-muted: #67554C;
+  --mh-eyebrow: #762326;
+  --mh-accent: #762326;
+  --mh-card-border: rgba(64, 47, 41, 0.08);
+  --mh-card-shadow: 0 14px 36px rgba(35, 25, 22, 0.12), 0 2px 8px rgba(35, 25, 22, 0.06);
+  --mh-font-display: 'Lastik', Georgia, serif;
+  --mh-font-body: 'Gabarito', system-ui, sans-serif;
+  --mh-offset: 0px;
+  --mh-bottom-pad: 120px;
+  --mh-color-dur: .8s;
+}
+
+/* Outer track for pinned scrolling */
+.mh-track {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Sticky stage / standalone hero container */
+.mh-hero {
+  --mh-font-display-curr: var(--mh-font-display, inherit);
+  --mh-font-body-curr: var(--mh-font-body, inherit);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  width: 100%;
+  height: calc(100svh - var(--mh-offset, 0px));
+  min-height: 580px;
+  background: var(--mh-bg);
+  color: var(--mh-text);
+  font-family: var(--mh-font-body-curr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.mh-hero.mh-sticky {
+  position: sticky;
+  top: var(--mh-offset, 0px);
+}
+
+/* Dark Theme */
+.mh-hero[data-theme="dark"],
+.mh-track[data-theme="dark"] .mh-hero {
+  --mh-bg: #17100d;
+  --mh-text: #f4ead7;
+  --mh-muted: #a89b88;
+  --mh-eyebrow: #d4573a;
+  --mh-accent: #e2a93b;
+  --mh-card-border: rgba(255, 255, 255, 0.08);
+  --mh-card-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Light Theme (Default for Malnadu Kitchen) */
+.mh-hero[data-theme="light"],
+.mh-track[data-theme="light"] .mh-hero {
+  --mh-bg: #FAF6F0;
+  --mh-text: #231916;
+  --mh-muted: #67554C;
+  --mh-eyebrow: #762326;
+  --mh-accent: #762326;
+  --mh-card-border: rgba(64, 47, 41, 0.08);
+  --mh-card-shadow: 0 14px 36px rgba(35, 25, 22, 0.12), 0 2px 8px rgba(35, 25, 22, 0.06);
+}
+
+/* Noise texture */
+.mh-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.mh-hero[data-theme="dark"] .mh-noise {
+  opacity: .14;
+  mix-blend-mode: overlay;
+}
+
+/* Card Gallery */
+.mh-gallery {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+  contain: layout paint;
+  opacity: 0;
+  transform: scale(1.18);
+  transition: opacity 1.2s ease, transform 1.4s cubic-bezier(.2, .9, .3, 1);
+}
+.mh-ready .mh-gallery {
+  opacity: 1;
+  transform: none;
+}
+
+.mh-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  pointer-events: auto;
+  transform-origin: center;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+  cursor: pointer;
+}
+.mh-card:focus-visible {
+  outline: 2px solid var(--mh-accent);
+  outline-offset: 4px;
+}
+
+.mh-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transform-origin: center;
+  background: var(--mh-bg);
+  box-shadow: var(--mh-card-shadow);
+  border: 1px solid var(--mh-card-border);
+  box-sizing: border-box;
+}
+.mh-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: center;
+}
+
+.mh-label {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  color: var(--mh-text);
+  font-family: var(--mh-font-body-curr);
+}
+.mh-label span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+}
+.mh-label span:last-child {
+  color: var(--mh-eyebrow);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+/* Center Copy Stack */
+.mh-copy {
+  position: relative;
+  z-index: 5;
+  width: 58%;
+  max-width: 920px;
+  display: grid;
+  grid-template-areas: "copy-cell";
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+  margin: 0 auto;
+}
+
+/* Direct JS-driven states - no conflicting CSS transitions so RAF updates are butter-smooth */
+.mh-state {
+  grid-area: copy-cell;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+.mh-state-1 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mh-state-2 {
+  opacity: 0;
+  transform: translateY(36px);
+  pointer-events: none;
+}
+
+/* Eyebrow */
+.mh-eyebrow {
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--mh-eyebrow);
+  font-family: var(--mh-font-body-curr);
+}
+
+/* Title 1 (Taste of Telangana) */
+.mh-title {
+  margin: 0;
+  width: 100%;
+  font-family: var(--mh-font-display-curr);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--mh-text);
+  transition: color var(--mh-color-dur) ease-in-out;
+}
+
+/* Title 2 (Editorial statement on scroll) */
+.mh-title-2 {
+  font-family: var(--mh-font-display-curr);
+  font-size: clamp(26px, 4vw, 50px);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  text-transform: none;
+  max-width: 780px;
+  margin: 0 auto;
+  color: var(--mh-text);
+  text-wrap: balance;
+  display: block;
+}
+
+.mh-line-wrap {
+  display: block;
+}
+
+.mh-line {
+  display: block;
+  width: max-content;
+  max-width: none;
+  margin: 0 auto;
+  white-space: nowrap;
+}
+.mh-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.mh-ch {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  margin-bottom: -.25em;
+}
+.mh-ch > span {
+  display: block;
+  padding-bottom: .25em;
+  transform: translateY(100%);
+  transition: transform .9s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: var(--d, 0s);
+}
+.mh-ready .mh-state-1 .mh-ch > span {
+  transform: none;
+}
+
+/* Subtitle & Proof */
+.mh-sub,
+.mh-proof {
+  max-width: 600px;
+  margin: 18px 0 0;
+  font-size: 17px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: var(--mh-muted);
+  font-family: var(--mh-font-body-curr);
+}
+.mh-proof {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--mh-eyebrow);
+}
+
+.mh-w {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .8s ease, transform .9s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: var(--d, 0s);
+}
+.mh-ready .mh-state-1 .mh-w,
+.mh-ready .mh-state-2 .mh-w {
+  opacity: 1;
+  transform: none;
+}
+
+/* Footer bottom bar */
+.mh-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 36px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--mh-muted);
+  opacity: 0;
+  transition: opacity 1.2s ease 1s;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+.mh-ready .mh-bar {
+  opacity: 1;
+}
+.mh-bar > * {
+  pointer-events: auto;
+}
+.mh-bar a {
+  color: var(--mh-text);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: color .2s ease;
+}
+.mh-bar a:hover {
+  color: var(--mh-eyebrow);
+}
+.mh-bar a:focus-visible {
+  outline: 2px solid var(--mh-accent);
+  outline-offset: 3px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1199.98px) {
+  .mh-copy { width: 70%; }
+  .mh-bar { padding: 20px 24px; font-size: 12px; }
+}
+
+@media (max-width: 809.98px) {
+  .mh-copy { width: 88%; }
+  .mh-eyebrow { font-size: 11px; margin-bottom: 12px; }
+  .mh-title-2 { font-size: clamp(22px, 5.5vw, 36px); }
+  .mh-sub { font-size: 15px; margin-top: 14px; }
+  .mh-proof { font-size: 13px; margin-top: 10px; }
+  .mh-bar {
+    padding: 16px 20px;
+    font-size: 11px;
+    gap: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mh-gallery, .mh-ch > span, .mh-w, .mh-bar, .mh-title, .mh-state {
+    transition: none !important;
+  }
+}
