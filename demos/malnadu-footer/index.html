@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halftone Wordmark Animated Footer | Components Vault</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#090a0f; color:#fff; font-family:-apple-system,BlinkMacSystemFont,sans-serif; min-height:100vh; display:flex; flex-direction:column; justify-content:space-between; }
+    .content-area { padding:5rem 2rem; max-width:1000px; margin:0 auto; text-align:center; }
+    .content-area h1 { font-size:3.5rem; font-weight:800; letter-spacing:-0.03em; margin-bottom:1rem; background:linear-gradient(135deg, #fff 30%, #94a3b8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .content-area p { color:#94a3b8; font-size:1.15rem; line-height:1.7; max-width:650px; margin:0 auto; }
+    
+    .footer-container { position:relative; background:#040507; border-top:1px solid rgba(255,255,255,0.08); padding:4rem 2rem 2rem; overflow:hidden; }
+    .halftone-canvas { width:100%; height:260px; display:block; }
+    .footer-links { display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:2rem auto 0; padding-top:2rem; border-top:1px solid rgba(255,255,255,0.06); font-size:0.9rem; color:#64748b; }
+    .footer-links a { color:#94a3b8; text-decoration:none; margin-left:1.5rem; transition:color 0.2s; }
+    .footer-links a:hover { color:#38bdf8; }
+  </style>
+</head>
+<body>
+  <div class="content-area">
+    <h1>Halftone Kinetic Footer</h1>
+    <p>Interactive dot-matrix halftone shader canvas wordmark that dynamically deforms and reacts to cursor proximity and spring physics.</p>
+  </div>
+
+  <footer class="footer-container">
+    <canvas id="halftone" class="halftone-canvas"></canvas>
+    <div class="footer-links">
+      <div>© 2026 MALNADU VAULT • ALL RIGHTS RESERVED</div>
+      <div>
+        <a href="#">Experience</a>
+        <a href="#">Motion Principles</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('halftone');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let mouse = { x: -1000, y: -1000, radius: 180 };
+
+    function resize() {
+      width = canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      height = canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    window.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = (e.clientX - rect.left) * window.devicePixelRatio;
+      mouse.y = (e.clientY - rect.top) * window.devicePixelRatio;
+    });
+
+    let frame = 0;
+    function render() {
+      frame++;
+      ctx.clearRect(0, 0, width, height);
+
+      const text = 'MALNADU';
+      const fontSize = Math.min(width * 0.18, 160 * window.devicePixelRatio);
+      ctx.font = ;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Sample grid
+      const gap = 8 * window.devicePixelRatio;
+      const cols = Math.floor(width / gap);
+      const rows = Math.floor(height / gap);
+
+      // Create offscreen text canvas
+      const offCanvas = document.createElement('canvas');
+      offCanvas.width = width;
+      offCanvas.height = height;
+      const offCtx = offCanvas.getContext('2d');
+      offCtx.font = ctx.font;
+      offCtx.textAlign = 'center';
+      offCtx.textBaseline = 'middle';
+      offCtx.fillStyle = '#ffffff';
+      offCtx.fillText(text, width / 2, height / 2);
+      const imgData = offCtx.getImageData(0, 0, width, height).data;
+
+      for (let y = 0; y < height; y += gap) {
+        for (let x = 0; x < width; x += gap) {
+          const index = (Math.floor(y) * width + Math.floor(x)) * 4;
+          const alpha = imgData[index + 3];
+
+          if (alpha > 50) {
+            const dx = x - mouse.x;
+            const dy = y - mouse.y;
+            const dist = Math.hypot(dx, dy);
+
+            let maxRadius = (gap / 2) * 0.9;
+            let currentRadius = (alpha / 255) * maxRadius;
+
+            if (dist < mouse.radius) {
+              const force = (1 - dist / mouse.radius);
+              currentRadius *= (1 + force * 1.5);
+              ctx.fillStyle = ;
+            } else {
+              const wave = Math.sin(frame * 0.03 + (x * 0.01)) * 0.5 + 0.5;
+              ctx.fillStyle = ;
+            }
+
+            ctx.beginPath();
+            ctx.arc(x, y, Math.max(1, currentRadius), 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+
+      requestAnimationFrame(render);
+    }
+    render();
+  </script>
+<!-- Floating Vault Navigation Pill -->
+<div style="position:fixed; top:1.25rem; right:1.25rem; z-index:999999; display:flex; gap:0.6rem; align-items:center; background:rgba(10,12,18,0.85); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.18); border-radius:9999px; padding:0.4rem 0.95rem; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:13px; font-weight:500; color:#fff; box-shadow:0 12px 32px rgba(0,0,0,0.5); pointer-events:auto;">
+  <a href="/" style="color:#cbd5e1; text-decoration:none; display:flex; align-items:center; gap:0.35rem; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#cbd5e1'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    <span>Components</span>
+  </a>
+  <span style="color:rgba(255,255,255,0.25);">|</span>
+  <a href="https://github.com/revanthlol/components" target="_blank" style="color:#38bdf8; text-decoration:none; display:flex; align-items:center; gap:0.3rem; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+    <span>GitHub</span>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+  </a>
+</div>
+</body>
+</html>

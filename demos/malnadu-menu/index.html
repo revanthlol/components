@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menu | Malnadu Kitchen — Taste of Telangana</title>
+<meta name="description" content="Explore all 151 Telangana dishes and drinks across 22 authentic categories at Malnadu Kitchen, Kompally, Hyderabad.">
+<link rel="canonical" href="/menu/">
+<link href="/assets/malnadu-kitchen-logo-icon.png" rel="icon">
+<link rel="apple-touch-icon" href="/assets/malnadu-kitchen-logo-icon.png">
+
+<!-- Fonts -->
+<style>
+@font-face {
+  font-family: 'Gabarito';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/assets/gabarito.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Lastik';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/assets/lastik.woff2') format('woff2');
+}
+
+:root {
+  --bg: #FFFFFF;
+  --bg-canvas: #FCFAF8;
+  --bg-surface: #FAF6F0;
+  --ink: #231916;
+  --mute: #67554C;
+  --line: rgba(35, 25, 22, 0.12);
+  --red: #A02828;
+  --red-hover: #771E21;
+  --veg: #2E7D32;
+  --nv: #A02828;
+  --ease: cubic-bezier(.32, .72, 0, 1);
+  --art-default: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 112 112'%3E%3Crect width='112' height='112' fill='%23FAF6F0'/%3E%3Crect x='.5' y='.5' width='111' height='111' fill='none' stroke='%23231916' stroke-opacity='.14'/%3E%3Ccircle cx='56' cy='50' r='27' fill='none' stroke='%23762326' stroke-width='2'/%3E%3Ccircle cx='56' cy='50' r='18' fill='none' stroke='%23762326' stroke-opacity='.45' stroke-width='1.5'/%3E%3Ctext x='56' y='98' text-anchor='middle' font-family='sans-serif' font-size='9' font-weight='700' letter-spacing='1.2' fill='%2367554C'%3EPHOTO SOON%3C/text%3E%3C/svg%3E");
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Gabarito', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ==================== UNIFIED RED HEADER ==================== */
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 80px;
+  background: #762326;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 0 48px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.header-inner {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-logo-link {
+  display: flex;
+  align-items: center;
+}
+
+.site-logo-link img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+nav.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-link {
+  font-family: 'Gabarito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  padding: 8px 0;
+  transition: color 0.15s ease;
+}
+
+.nav-link:hover {
+  color: #FFDEB5;
+}
+
+.nav-link.active {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.nav-reserve-cta {
+  display: inline-flex;
+  align-items: center;
+  background: #FAF6F0;
+  color: #762326 !important;
+  font-family: 'Gabarito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s ease, transform 0.15s ease;
+  margin-left: 12px;
+}
+
+.nav-reserve-cta:hover {
+  background: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #FFFFFF;
+  padding: 6px;
+}
+
+.mobile-nav-overlay {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--line);
+  padding: 20px 24px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mobile-nav-overlay.open {
+  display: flex;
+}
+
+.mobile-nav-overlay a {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.mobile-nav-overlay .mobile-reserve-cta {
+  display: block;
+  text-align: center;
+  background: var(--red);
+  color: #FFF4F1 !important;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-weight: 700;
+  border-bottom: none;
+  margin-top: 8px;
+}
+
+/* ==================== MENU TWO-COLUMN SHELL ==================== */
+.shell {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 64px;
+  box-sizing: border-box;
+}
+
+.side {
+  position: sticky;
+  top: 76px;
+  align-self: start;
+  height: calc(100vh - 76px);
+  height: calc(100dvh - 76px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 32px 0 24px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.search input {
+  width: 100%;
+  height: 42px;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0 14px;
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+
+.search input:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(160, 40, 40, 0.12);
+}
+
+.search input::placeholder {
+  color: var(--mute);
+}
+
+.seg {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 3px;
+  background: var(--bg-surface);
+}
+
+.seg-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc((100% - 6px) / 3);
+  border-radius: 8px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transform: translateX(calc(var(--i, 0) * 100%));
+  transition: transform 0.28s var(--ease);
+}
+
+.seg button {
+  position: relative;
+  white-space: nowrap;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--mute);
+  background: none;
+  border: 0;
+  height: 32px;
+  cursor: pointer;
+  transition: color 0.15s var(--ease), transform 0.1s ease-out;
+}
+
+.seg button[aria-pressed="true"] {
+  color: var(--red);
+}
+
+.rail {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: none;
+  overscroll-behavior: contain;
+  margin: 0 -4px;
+  padding: 0 4px;
+  touch-action: pan-y;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.thumb {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: 0;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(35, 25, 22, 0.06);
+  border: none;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.rail a {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  height: 34px;
+  line-height: 34px;
+  padding: 0 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: color 0.15s var(--ease);
+}
+
+.rail a[aria-current="true"] {
+  color: var(--ink);
+  font-weight: 700;
+  cursor: grab;
+}
+
+.rail.dragging, .rail.dragging a {
+  cursor: grabbing;
+}
+
+.grp {
+  flex: none;
+  padding: 20px 12px 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mute);
+  opacity: 0.75;
+}
+
+.grp:first-of-type {
+  padding-top: 4px;
+}
+
+/* ==================== CONTENT COLUMN ==================== */
+.content {
+  padding-bottom: 80px;
+}
+
+.head {
+  padding: 40px 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.head-eyebrow {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+
+h1.menu-title {
+  font-family: 'Lastik', Georgia, serif;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #402F29;
+  margin: 0 0 10px 0;
+}
+
+.sub {
+  color: var(--mute);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  max-width: 48ch;
+}
+
+section.cat {
+  padding-top: 56px;
+}
+
+section.cat h2 {
+  font-family: 'Lastik', Georgia, serif;
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #402F29;
+  margin: 0 0 12px 0;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.15s ease;
+}
+
+/* Super Hover: the active row is set from JS so it stays correct while the
+   page scrolls under a still cursor. Mouse and pen only, never touch. */
+.item {
+  position: relative;
+}
+
+.item[data-hover] {
+  border-bottom-color: var(--ink);
+}
+
+/* Image reveal. Sits on the active row, grows upward over the rows above,
+   flips below the row when it would run under the sticky header. */
+.art {
+  --art-size: 160px;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 20;
+  width: var(--art-size);
+  height: var(--art-size);
+  margin-left: calc(var(--art-size) / -2);
+  background: var(--art-default) center / cover no-repeat;
+  box-shadow: 0 10px 28px rgba(35, 25, 22, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out;
+}
+
+.item[data-art-below] .art {
+  bottom: auto;
+  top: calc(100% + 8px);
+}
+
+.item[data-hover] .art {
+  opacity: 1;
+}
+
+@media (hover: none), (max-width: 859px) {
+  .art { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item { transition: none; }
+}
+
+.nm {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.mk {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  display: inline-grid;
+  place-items: center;
+  transform: translateY(1px);
+}
+
+.mk::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.mk.veg {
+  color: var(--veg);
+}
+
+.mk.nonveg {
+  color: var(--nv);
+}
+
+.note {
+  grid-column: 1;
+  margin: 2px 0 0 24px;
+  color: var(--mute);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.pr {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.pr div {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: baseline;
+}
+
+.pr small {
+  color: var(--mute);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.tbc {
+  color: var(--mute);
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+
+.empty {
+  padding: 72px 0;
+  color: var(--mute);
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.menu-notice-box {
+  margin-top: 64px;
+  padding: 28px 32px;
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--mute);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.menu-notice-box p {
+  margin-bottom: 10px;
+}
+
+.menu-notice-box p:last-child {
+  margin-bottom: 0;
+}
+
+.menu-notice-box strong {
+  color: var(--ink);
+}
+
+/* ==================== CANONICAL RED FOOTER ==================== */
+.mk-container {
+  width: min(1200px, calc(100% - 64px));
+  margin-inline: auto;
+}
+
+@media (max-width: 640px) {
+  .mk-container {
+    width: calc(100% - 36px);
+  }
+}
+
+.mk-footer {
+  position: relative;
+  padding: 96px 0 32px;
+  background-color: #771E21 !important;
+  color: #F4DFB8 !important;
+  font-family: 'Gabarito', sans-serif !important;
+  box-sizing: border-box;
+  clear: both;
+}
+
+.mk-footer * {
+  box-sizing: border-box;
+}
+
+.mk-footer a {
+  color: #F4DFB8;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.mk-footer a:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+.mk-pattern {
+  position: absolute;
+  inset: 20px 0 auto;
+  height: 42px;
+  background: url('/assets/malnadu-pattern-seamless.svg') repeat-x left center / 152.25px 42px;
+  opacity: 0.9;
+}
+
+.mk-footer-imprint {
+  position: relative;
+  margin: 20px auto 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mk-footer-lockup {
+  position: relative;
+  width: 95vw !important;
+  max-width: 1400px !important;
+  height: auto !important;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.3));
+  display: block;
+  margin: 0 auto;
+}
+
+.mk-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 0.8fr;
+  gap: 56px;
+}
+
+@media (max-width: 860px) {
+  .mk-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+.mk-footer h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  color: #F4DFB8;
+  letter-spacing: 0.02em;
+}
+
+.mk-footer p, .mk-footer address, .mk-footer nav a {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #F4DFB8;
+  opacity: 0.92;
+}
+
+.mk-footer nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mk-footer-brand {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+
+.mk-footer .mk-copyright {
+  padding-top: 28px;
+  border-top: 1px solid rgba(244, 223, 184, 0.35);
+  margin-top: 48px;
+  text-align: center;
+}
+
+.mk-footer .mk-copyright p {
+  font-size: 13px;
+  color: #F4DFB8;
+  opacity: 0.8;
+}
+
+/* ==================== RESPONSIVE RULES ==================== */
+@media (max-width: 859px) {
+  header.site-header {
+    height: 64px;
+    padding: 0 20px;
+  }
+  .site-logo-link img {
+    height: 32px;
+  }
+  nav.header-nav {
+    display: none;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+  .shell {
+    display: block;
+    padding: 0 16px;
+  }
+  .side {
+    height: auto;
+    position: sticky;
+    top: 64px;
+    margin: 0 -16px;
+    z-index: 50;
+    gap: 8px;
+    padding: 10px 16px 8px;
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .controls {
+    flex-direction: row;
+  }
+  .search {
+    flex: 1;
+    min-width: 0;
+  }
+  .seg {
+    width: 216px;
+    flex: none;
+  }
+  .rail {
+    flex: none;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 0 -16px;
+    padding: 0 16px 8px;
+    gap: 4px;
+    touch-action: pan-x;
+  }
+  .thumb {
+    left: 0;
+    right: auto;
+    top: 0;
+    bottom: 8px;
+    height: auto;
+    width: 80px;
+    border-radius: 8px;
+    background: rgba(160, 40, 40, 0.08);
+    border: none;
+  }
+  .grp {
+    display: none;
+  }
+  .head {
+    padding-top: 24px;
+  }
+  section.cat {
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 420px) {
+  .seg {
+    width: 200px;
+  }
+  .seg button {
+    font-size: 0.8125rem;
+  }
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+</style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="site-logo-link" aria-label="Malnadu Kitchen Home">
+        <img src="/assets/malnadu-logo-horizontal-white.svg" alt="Malnadu Kitchen" width="240" height="48">
+      </a>
+      <nav class="header-nav">
+        <a href="/#about-us" class="nav-link">ABOUT US</a>
+        <a href="/menu/" class="nav-link active">MENU</a>
+        <a href="/contact-us" class="nav-link">CONTACT</a>
+        <a href="#reserve-table" class="nav-reserve-cta">RESERVE A TABLE</a>
+      </nav>
+      <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="mobile-nav-overlay" id="mobile-nav">
+      <a href="/#about-us">ABOUT US</a>
+      <a href="/menu/" class="active">MENU</a>
+      <a href="/contact-us">CONTACT</a>
+      <a href="#reserve-table" class="mobile-reserve-cta">RESERVE A TABLE</a>
+    </div>
+  </header>
+
+  <!-- Menu Layout -->
+  <div class="shell">
+    <aside class="side" id="side">
+      <div class="controls">
+        <label class="search">
+          <span class="sr">Search the menu</span>
+          <input id="q" type="search" placeholder="Search dishes..." autocomplete="off">
+        </label>
+        <div class="seg" id="seg" role="group" aria-label="Filter by diet">
+          <i class="seg-thumb"></i>
+          <button type="button" data-f="all" aria-pressed="true">All</button>
+          <button type="button" data-f="veg" aria-pressed="false">Veg</button>
+          <button type="button" data-f="nonveg" aria-pressed="false">Non veg</button>
+        </div>
+      </div>
+      <nav class="rail" id="rail" aria-label="Menu sections">
+        <i class="thumb" id="thumb"></i>
+      </nav>
+    </aside>
+
+    <div class="content">
+      <header class="head">
+        <p class="head-eyebrow">151 Dishes · 22 Authentic Categories</p>
+        <h1 class="menu-title">Menu</h1>
+        <p class="sub">Malnadu Kitchen, Taste of Telangana.<br lang="te">మలనాడు కిచెన్ — హోయసల ఇన్, కొంపల్లి</p>
+      </header>
+
+      <main id="menu"></main>
+
+      <div class="menu-notice-box">
+        <p><strong>Good to know.</strong> Government taxes apply, and the printed menu lists an additional 5% service charge. Orders usually take about 20 minutes to prepare fresh. Orders once placed cannot be cancelled. Online offers cannot be combined with in-house offers.</p>
+        <p>Veg and non veg marks follow the printed restaurant menu. Items without a mark are unspecified there. For allergies, spice preferences, or special requests, please speak to your server.</p>
+        <p><strong>Malnadu Kitchen</strong>, First floor, Hoysala Inn, Kompally Road, next to Srikara Hospital, Kompally, Hyderabad 500100. Call: <a href="tel:+917995133353" style="color:var(--red);font-weight:700;">79951 33353</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canonical Malnadu Red Footer -->
+  <div id="mk-footer-root"><link rel="preload" as="image" href="/assets/malnadu-logo-horizontal-cream.svg"/><footer id="visit-us" class="bwf " style="--bwf-bg:#762326;--bwf-ink:#f4dfb8;--bwf-b:58%" data-seen="false"><style>
+@font-face{font-family:Gabarito;src:url('/assets/gabarito.woff2') format('woff2');font-display:swap;font-weight:400 900}
+.bwf{display:flex;flex-direction:column;min-height:100svh;position:relative;isolation:isolate;overflow:hidden;background:var(--bwf-bg);color:var(--bwf-ink);font-family:Gabarito,Arial,sans-serif;container-type:inline-size}
+.bwf *{box-sizing:border-box}.bwf p{margin:0}.bwf a{color:inherit;text-decoration:none}.bwf a:focus-visible{outline:2px solid #f4dfb8;outline-offset:5px}.bwf a:hover{text-decoration:underline;text-underline-offset:5px}
+.bwf-pattern{flex:none;height:28px;background:#94342f url('/assets/malnadu-pattern-seamless.svg') repeat-x center / auto 20px;border-bottom:1px solid #f4dfb833}
+.bwf-sky{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle clamp(100px,18cqw,340px) at var(--px,50%) var(--py,70%),rgba(244,223,184,calc(var(--glow,0)*.12)),transparent 72%),linear-gradient(118deg,transparent calc(var(--bwf-b) - 9%),#e7bc7514 var(--bwf-b),transparent calc(var(--bwf-b) + 7%))}
+
+.bwf-inner{width:100%;max-width:1320px;margin:auto;padding:76px 56px 0;display:grid;grid-template-columns:1.1fr 1.15fr .7fr;gap:64px}
+.bwf-label{font-size:.75rem;line-height:1.3;letter-spacing:.05em;text-transform:uppercase;padding-bottom:17px;border-bottom:1px solid #f4dfb84d;margin:0 0 24px;font-weight:500}
+.bwf-logo{width:260px;max-width:100%;height:auto;display:block;margin:0 0 24px}.bwf-copy{font-size:1rem;line-height:1.6;text-wrap:pretty;max-width:300px;color:#ead1ad}.bwf .bwf-telugu{font-size:.8125rem;margin-top:14px;line-height:1.7;color:#ead1ad}
+.bwf address{font-size:.9375rem;font-style:normal;line-height:1.7;color:#ead1ad}.bwf-call{display:block;width:fit-content;font-size:1.375rem;margin:18px 0 12px}.bwf-direction{font-size:.875rem}.bwf-map{border-radius:24px;corner-shape:squircle;overflow:hidden;width:100%;height:142px;border:1px solid #f4dfb84d;margin-top:22px;display:block;filter:saturate(.65)}
+.bwf #reserve-table{scroll-margin-top:110px}.bwf-links{list-style:none;padding:0;margin:0}.bwf-links a{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;font-size:1rem}.bwf-links span{font-size:1.0625rem;opacity:.65}.bwf-note{width:100%;max-width:1320px;margin:52px auto 30px;padding:22px 56px 0;display:flex;justify-content:space-between;gap:18px;font-size:.75rem;color:#e1bd99}.bwf-note p:first-child{max-width:70%}
+.bwf-word{flex:none;margin-top:auto;padding:0 35px;height:var(--word-height,18vw);overflow:hidden;position:relative}.bwf-word-in{display:inline-flex;white-space:pre;letter-spacing:-.055em;font-family:Georgia,serif;font-weight:400;line-height:1;align-items:center;gap:0}.bwf-letter{display:inline-block;color:transparent;background-image:radial-gradient(circle clamp(90px,16cqw,300px) at var(--px,50%) var(--py,70%),rgba(255,239,205,var(--glow,0)),transparent 70%),linear-gradient(118deg,transparent calc(var(--bwf-b) - 9%),#f4dfb8cc var(--bwf-b),transparent calc(var(--bwf-b) + 8%)),linear-gradient(#c99870,#9e5745);background-repeat:no-repeat;background-size:var(--rw) var(--rh);background-position:calc(-1 * var(--x)) calc(-1 * var(--y));background-clip:text;-webkit-background-clip:text;transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .25s;transform-origin:50% 100%}.bwf-letter:hover{transform:translateY(-.045em);filter:brightness(1.25)}.bwf-icon{width:.74em;height:.74em;flex:none;margin-right:.16em;background-clip:border-box;-webkit-background-clip:border-box;mask:url('/assets/malnadu-logo-icon.svg') center/contain no-repeat;-webkit-mask:url('/assets/malnadu-logo-icon.svg') center/contain no-repeat}.bwf[data-seen='false'] .bwf-inner,.bwf[data-seen='false'] .bwf-note{opacity:0;translate:0 14px}.bwf-inner,.bwf-note{transition:opacity .7s,translate .7s cubic-bezier(.2,.8,.2,1)}.bwf a:active{opacity:.72}
+.bwf-foot{position:absolute;inset:70% 0 0;background:linear-gradient(transparent,var(--bwf-bg));pointer-events:none}
+@container(max-width:950px){.bwf-inner{padding:54px 32px 0;gap:32px;grid-template-columns:1fr 1fr}.bwf-brand{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:32px}.bwf-brand .bwf-label{grid-column:1/-1;margin-bottom:0}.bwf-logo{margin:0}.bwf-note{padding:22px 32px 0}.bwf-word{padding:0 24px}}
+@container(max-width:520px){.bwf-inner{padding:36px 24px 0;grid-template-columns:1fr;gap:36px}.bwf-brand{display:block}.bwf-brand .bwf-label{margin-bottom:24px}.bwf-logo{width:255px;margin-bottom:22px}.bwf-copy{max-width:none}.bwf-map{height:170px}.bwf-note{padding:0 24px;margin-top:36px;display:block;line-height:1.7}.bwf-note p:first-child{max-width:none;margin-bottom:8px}.bwf-word{margin-top:auto;padding:0 14px}}
+@media(prefers-reduced-motion:reduce){.bwf-letter,.bwf-inner,.bwf-note{transition:none}.bwf-letter:hover{transform:none}.bwf[data-seen='false'] .bwf-inner,.bwf[data-seen='false'] .bwf-note{opacity:1;translate:none}}
+</style><div class="bwf-pattern" aria-hidden="true"></div><div class="bwf-sky" aria-hidden="true"></div><div class="bwf-inner"><div class="bwf-brand"><h2 class="bwf-label">Taste of Telangana</h2><img class="bwf-logo" src="/assets/malnadu-logo-horizontal-cream.svg" alt="Malnadu Kitchen" width="920" height="184"/><div><p class="bwf-copy">Authentic Telangana regional dining at Kompally, Hyderabad. Fresh ingredients, time-honoured spice blends, and warm hospitality.</p><p class="bwf-telugu" lang="te">మలనాడు కిచెన్ · టేస్ట్ ఆఫ్ తెలంగాణ</p></div></div><section id="reserve-table" tabindex="-1" aria-labelledby="bwf-visit"><h2 class="bwf-label" id="bwf-visit">Visit us</h2><address>1st floor, Hoysala Inn, Kompally Road,<br/>next to Srikara Hospital, near Croma,<br/>Ruby Block, Kompally, Hyderabad,<br/>Telangana 500100</address><a class="bwf-call" aria-label="Call Malnadu Kitchen to reserve a table" href="tel:+917995133353">79951 33353</a><a class="bwf-direction" href="https://maps.app.goo.gl/es7rea6o8RAKE8639" target="_blank" rel="noreferrer">Get directions <span aria-hidden="true">↗</span></a><iframe class="bwf-map" title="Malnadu Kitchen location map" loading="lazy" src="https://maps.google.com/maps?q=Malnadu%20Kitchen%2C%201st%20floor%2C%20Hoysala%20Inn%2C%20Kompally%20Road%2C%20Hyderabad&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"></iframe></section><nav aria-label="At your table"><h2 class="bwf-label">At your table</h2><ul class="bwf-links"><li><a href="/">Home<span aria-hidden="true">↗</span></a></li><li><a href="/menu/">Menu<span aria-hidden="true">↗</span></a></li><li><a href="/#about-us">About us<span aria-hidden="true">↗</span></a></li><li><a href="#reserve-table">Reserve a table<span aria-hidden="true">↗</span></a></li><li><a href="/contact-us">Contact<span aria-hidden="true">↗</span></a></li></ul></nav></div><div class="bwf-note"><p>© <!-- -->2026<!-- --> <!-- -->Malnadu Kitchen<!-- -->. All rights reserved.</p><p>Kompally, Hyderabad · Taste of Telangana</p></div><div class="bwf-word" role="img" aria-label="MALNADU KITCHEN"><div class="bwf-word-in" aria-hidden="true"><span class="bwf-letter bwf-icon"></span><span class="bwf-letter">M</span><span class="bwf-letter">A</span><span class="bwf-letter">L</span><span class="bwf-letter">N</span><span class="bwf-letter">A</span><span class="bwf-letter">D</span><span class="bwf-letter">U</span><span class="bwf-letter"> </span><span class="bwf-letter">K</span><span class="bwf-letter">I</span><span class="bwf-letter">T</span><span class="bwf-letter">C</span><span class="bwf-letter">H</span><span class="bwf-letter">E</span><span class="bwf-letter">N</span></div><div class="bwf-foot"></div></div></footer></div>
+
+<script>
+// Mobile toggle
+const mobileToggle = document.getElementById('mobile-toggle');
+const mobileNav = document.getElementById('mobile-nav');
+if (mobileToggle && mobileNav) {
+  mobileToggle.addEventListener('click', () => {
+    mobileNav.classList.toggle('open');
+  });
+}
+
+// Menu Data & Interaction Physics
+const DATA = [["Soup’s",[["Sweet Corn Soup",[["Veg",199,"veg"],["Non Veg",249,"nonveg"]],"both",""],["Manchow Soup",[["Veg",199,"veg"],["Non Veg",249,"nonveg"]],"both",""],["Hot N Sour Soup",[["Veg",199,"veg"],["Non Veg",249,"nonveg"]],"both",""],["Mutton Marag Soup",[["",339,""]],"nonveg",""]]],["Telangana Special Appetizers",[["Golinchina",[["Paneer",399,""],["Baby Corn",389,""]],"veg",""],["Mushroom Vepudu",[["",399,""]],"veg",""],["Chitti Garelu",[["Tamato",389,"veg"],["Natu Kodi",449,"nonveg"],["Mamsam",489,"nonveg"]],"both",""],["Chicken Boneless",[["Golinchina",419,""],["Ghee Roast",429,""]],"nonveg",""],["Golinchina Natukodi",[["",429,""]],"nonveg",""],["Mutton Boneless",[["Golinchina",539,""],["Ghee Roast",559,""]],"nonveg",""],["Kaju Kodi Vepudu",[["",449,""]],"nonveg",""],["Karimnagar Fried Wings",[["",449,""]],"nonveg",""],["Kamju Pitta Ghee Roast",[["",449,""]],"nonveg",""],["Chapa Fry / Fish Fry",[["",449,""]],"nonveg",""],["Koramenu Boneless Chips",[["",499,""]],"nonveg",""],["Chitti Royyalu Vepudu",[["",489,""]],"nonveg",""],["Kara Kara Prawns",[["",489,""]],"nonveg",""],["Bheja Fry Roti",[["",449,""]],"nonveg",""]]],["Chinese Appetizers",[["Crispy Corn",[["",359,""]],"veg",""],["Kaju Fry",[["",379,""]],"veg",""],["Paneer",[["Chilli",399,""],["65",399,""],["Manchuria",399,""],["Majestic",399,""]],"veg",""],["Mushroom",[["65",389,""],["Manchuria",389,""],["Pepper",389,""]],"veg",""],["Baby Corn",[["65",389,""],["Majestic",389,""],["Manchuria",389,""],["Chilli",389,""]],"veg",""],["Veg",[["Manchuria",379,""],["Spring Roll",379,""],["Shanghai Roll",379,""]],"veg",""],["Egg",[["65",379,""],["Manchuria",379,""],["Chilli",379,""]],"unspecified",""],["Chicken",[["Chilli",419,""],["65",419,""],["Manchuria",419,""],["Majestic",419,""],["Peppar",419,""],["Drum Sticks",419,""]],"nonveg",""],["Fish",[["Chilli",449,""],["65",449,""],["Appolo",449,""]],"nonveg",""],["Prawns",[["Loose Fried",449,""],["Chilli",449,""],["Kara Kara",449,""]],"nonveg",""],["Spring Roll",[["Egg",379,""],["Chicken",419,""]],"nonveg",""]]],["From The Grill",[["Tandoori",[["Gobi",379,""],["Mushroom",379,""]],"veg",""],["Corn",[["Tikki",389,""],["Hara Bara Kebab",389,""]],"veg",""],["Paneer",[["Kurkure",419,""],["Tikka",409,""],["Achari",419,""],["Malai",419,""]],"veg",""],["Tandoori Chicken",[["Half",389,""],["Full",699,""]],"nonveg",""],["Tangdi Kebab",[["Half",389,""],["Full",699,""]],"nonveg",""],["Chicken",[["Tikka",419,""],["Malai",439,""]],"nonveg",""],["Kothimeera Ellipaya Kodi Kebab",[["",449,""]],"nonveg",""],["Ghee Roast Kebab",[["",449,""]],"nonveg",""],["Korameenu Fish Tikka",[["",499,""]],"nonveg",""],["Tandoori Prawns",[["",499,""]],"nonveg",""],["Royyala Seekulu",[["",499,""]],"nonveg",""],["Tandoori Platter (Chicken)",[["",1399,""]],"nonveg",""],["Tandoori Platter (Mixed)",[["",1599,""]],"nonveg",""]]],["Telangana Style Main Course",[["Tomato Pappu",[["",379,""]],"veg",""],["Dal Tadka",[["",379,""]],"veg",""],["Mudha Pappu",[["",379,""]],"veg",""],["Paneer",[["Kadai",419,""],["Butter",419,""],["Chat pat",419,""],["Palak",419,""]],"veg",""],["Veg",[["Kadai",399,""],["Chat pat",399,""],["Mix",399,""]],"veg",""],["Masala",[["Baby Corn",399,""],["Mushroom",399,""]],"veg",""],["Gutthi Vankaya Masala",[["",379,""]],"veg",""],["Mudha Pappu + Pachi Pulusu",[["",379,""]],"veg",""],["Methi Chaman",[["",439,""]],"veg",""],["Egg Masala",[["",419,""]],"nonveg",""],["Telangana Chicken Curry",[["",449,""]],"nonveg",""],["Potugal Kodi Koora",[["",449,""]],"nonveg",""],["Natukodi Koora",[["",449,""]],"nonveg",""],["Hyderabad Butter Chicken",[["",469,""]],"nonveg",""],["Kadai Chicken",[["",469,""]],"nonveg",""],["Potelu Mamsam",[["",529,""]],"nonveg",""],["Mutton Rogan josh",[["",529,""]],"nonveg",""],["Kheema",[["Fry",549,""],["Koora",549,""]],"nonveg",""],["Nalli Bokkala Koora",[["",679,""]],"nonveg",""],["Royyala Iguru",[["",529,""]],"nonveg",""],["Prawns",[["Butter",529,""],["Kadai",529,""]],"nonveg",""]]],["Indian Breads",[["Tandoori Roti",[["Plain",70,""],["Butter",90,""],["Garlic",99,""]],"veg",""],["Naan",[["Plain",70,""],["Butter",90,""],["Garlic",99,""]],"veg",""],["Mutton Kheema Naan",[["",299,""]],"nonveg",""],["Pulka",[["Chapathi",null,""],["Rumali Roti",null,""]],"veg","Printed prices: ₹40 / ₹50 / ₹60. Portion-to-price mapping needs confirmation."],["Roti Basket",[["",280,""]],"veg",""],["Chitti Garelu 12 pc",[["",239,""]],"veg",""],["Lachha Paratha",[["",99,""]],"veg",""]]],["Pulao, Biryani & Rice",[["Pulao",[["Veg",379,""],["Vankaya",379,""]],"veg",""],["Biryani",[["Veg",399,""],["Paneer",399,""],["Mushroom",399,""]],"veg",""],["Egg",[["Pulao",359,""],["Biryani",359,""]],"nonveg",""],["Pulao",[["Chicken",409,""],["Mutton",519,""],["Keema",529,""]],"nonveg",""],["Chitti Royyalu Pulao",[["",469,""]],"nonveg",""],["Chicken Dum Biryani",[["Regular",409,""],["Family",899,""]],"nonveg",""],["Mutton Dum Biryani",[["Regular",489,""],["Family",1099,""]],"nonveg",""],["Nalli Bokkala Biryani",[["Regular",649,""],["Family",1499,""]],"nonveg",""],["Malnadu Kodi Vepudu Biryani",[["Regular",439,""],["Family",999,""]],"nonveg",""],["Malnadu Special Boneless Biryani",[["Regular",439,""],["Family",999,""]],"nonveg",""],["Natukodi",[["Pulao",449,""],["Biryani",449,""]],"nonveg",""],["Fish Biryani",[["",449,""]],"nonveg",""],["Bagara Rice",[["",299,""]],"veg",""],["Sambar Rice",[["Veg",359,"veg"],["Chicken",419,"nonveg"],["Mutton",524,"nonveg"]],"both",""],["Jeera Rice",[["",259,""]],"veg",""],["Curd Rice",[["",199,""]],"veg",""],["Steam Rice",[["",159,""]],"veg",""]]],["Rice & Noodles",[["Fried Rice",[["Veg",null,"veg"],["Egg",null,"nonveg"],["Chicken",null,"nonveg"],["Prawns",null,"nonveg"]],"both","Printed prices: ₹310 / ₹330. Four variants are listed; price mapping needs confirmation."],["Noodles Soft / Fried",[["Veg",null,"veg"],["Egg",null,"nonveg"],["Chicken",null,"nonveg"],["Prawns",null,"nonveg"]],"both","Printed prices: ₹310 / ₹330. Four variants are listed; price mapping needs confirmation."],["Mixed Fried Rice",[["",420,""]],"unspecified","Confirm ingredients with the restaurant."]]],["Family Combos",[["Veg Family Combo",[["",1399,""]],"veg","Serves 4–6. Includes: 1 Pappu + Pachi Pulusu; 2 curries of your choice; 6 Pcs Chitti Garelu; 1 Family White Rice; 1 Family Bagara Rice; Curd / Pickle Choose 2: Gutthi Vankaya, Tomato, Veg chatpat"],["Chicken Family Combo",[["",1599,""]],"nonveg","Serves 4–6. Includes: 1 Mudha Pappu + Pachi Pulusu; 2 curries of your choice; 1 Family White Rice; 1 Family Bagara Rice; 1 Curd / Pickle Choose 2: Telangana Chicken Curry, Pothugal Kodi Koora, Natu Kodi Koora"],["Mamsam Family Combo",[["",1899,""]],"nonveg","Serves 4–6. Includes: 1 Mudda Pappu + Pachi Pulusu; 2 curries of your choice; 1 Family White Rice; 1 Family Bagara Rice; 1 Curd / Pickle Choose 2: Mamsam Koora, Mutton Rogan Josh, Kheema Koora"]]],["Desserts",[["Carrot Halwa",[["",150,""]],"unspecified",""],["Qubani Ka Metha",[["",180,""]],"unspecified",""],["Choice of Ice Cream",[["",160,""]],"unspecified",""],["Mud Crumble",[["",220,""]],"unspecified",""],["Apricot Trifle",[["",149,""]],"unspecified",""],["Death by Chocolate",[["",299,""]],"unspecified","2 Scoop Ice Cream."]]],["Beverages",[["Mocktails",[["",150,""]],"unspecified",""],["Water / Soda",[["",40,""]],"unspecified",""],["Soft Drinks",[["",40,""]],"unspecified",""],["Red Bull",[["",250,""]],"unspecified",""],["CanneD Juice",[["",150,""]],"unspecified",""],["Fresh Lime soda",[["Sweet",100,""],["Salt",100,""]],"unspecified",""]]],["Classic Cocktails",[["Classic’s",[["Each",300,""],["Pitcher",1000,""]],"unspecified",""],["Panakam - vodka+Gin",[["Each",350,""],["Pitcher",1200,""]],"unspecified",""],["Bombay Chatpat - vodka",[["Each",300,""],["Pitcher",1000,""]],"unspecified",""],["Whiskey Sour - Whiskey",[["Each",300,""],["Pitcher",1000,""]],"unspecified",""],["Mirchi Masala - Vodka",[["Each",300,""],["Pitcher",1000,""]],"unspecified",""],["Long island ice tea",[["Each",450,""],["Pitcher",1600,""]],"unspecified",""],["Long island electric tea",[["Each",550,""],["Pitcher",2000,""]],"unspecified",""],["Kobbari Bondam Cooler - Vodka+Gin",[["",350,""]],"unspecified","Single price printed; pitcher price is not listed."],["Bar Man Special",[["",500,""]],"unspecified","Single price printed; contents need confirmation."]]],["Mocktails",[["Virgin Mojito",[["",150,""]],"unspecified",""],["Virgin Pina colada",[["",150,""]],"unspecified",""],["Virgin Margarita",[["",150,""]],"unspecified",""],["Kobbari Bondam + Honey",[["",200,""]],"unspecified",""],["Cranberry Cooler",[["",200,""]],"unspecified",""]]],["Beer / Breezer",[["KF Premium",[["",180,""]],"unspecified","330 ml. Bottle / can format is not specified."],["Budweiser / Ultra",[["",220,""]],"unspecified","330 ml. Bottle / can format is not specified."],["Corona",[["",400,""]],"unspecified","330 ml. Bottle / can format is not specified."],["KF Draught",[["",180,""]],"unspecified","330 ml draught serving."],["Bacardi Breezer",[["",250,""]],"unspecified",""]]],["Premium Whiskey",[["Teachers Highland",[["",180,""]],"unspecified","30 ml."],["100 ’Pipers",[["",180,""]],"unspecified","30 ml."],["Black Dog 8 yrs",[["",150,""]],"unspecified","30 ml."],["Black & White",[["",150,""]],"unspecified","30 ml."],["Willam Lawsons",[["",180,""]],"unspecified","30 ml."]]],["Imported Scotch",[["Chivas 12yrs",[["",280,""]],"unspecified","30 ml."],["Black Label 12 yrs",[["",280,""]],"unspecified","30 ml."],["Teachers 12 yrs",[["",220,""]],"unspecified","30 ml."],["Red Rey Finish JW",[["",160,""]],"unspecified","30 ml. Name as printed."],["100 pipers 12 years",[["",160,""]],"unspecified","30 ml."]]],["Single Malt’s",[["Glenlivet 12yrs",[["",280,""]],"unspecified","30 ml."],["Singleton 12 yrs",[["",280,""]],"unspecified","30 ml."]]],["Gin & Liqueur",[["Tanqueray Gin",[["",180,""]],"unspecified","30 ml."],["Tequila",[["",200,""]],"unspecified","30 ml."],["Jagermeister",[["",300,""]],"unspecified","30 ml."],["Jager Bomb",[["",null,""]],"unspecified","Printed price ₹500. Serving unit is unclear; confirm before ordering."]]],["Vodka",[["Smirnoff",[["",150,""]],"unspecified","30 ml."],["Absolute",[["",180,""]],"unspecified","30 ml."]]],["Brandy",[["Morpheus XS",[["",120,""]],"unspecified","30 ml."],["Mansion House",[["",120,""]],"unspecified","30 ml."]]],["Rum",[["Old Monk",[["",120,""]],"unspecified","30 ml."],["Bacardi Black",[["",120,""]],"unspecified","30 ml."],["Bacardi White",[["",150,""]],"unspecified","30 ml."],["Jacobs Creek",[["",null,""]],"unspecified","Printed under Rum at ₹3000. Product classification and serving unit need confirmation."]]],["Unlabelled Bar Selection",[["Teachers 50",[["",null,""]],"unspecified","Printed price ₹160. Category heading and serving unit are missing; confirm before ordering."],["Balentines",[["",null,""]],"unspecified","Printed price ₹160. Category heading and serving unit are missing; confirm before ordering."],["Jameson",[["",null,""]],"unspecified","Printed price ₹200. Category heading and serving unit are missing; confirm before ordering."]]]];
+const KITCHEN = 10;
+const $ = id => document.getElementById(id);
+const menu = $('menu'), rail = $('rail'), thumb = $('thumb'), side = $('side'), q = $('q'), seg = $('seg');
+const mq = matchMedia('(max-width:859px)'), reduce = matchMedia('(prefers-reduced-motion: reduce)');
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = n => '₹' + n.toLocaleString('en-IN');
+const mark = d => d === 'veg' || d === 'nonveg' ? `<i class="mk ${d}" role="img" aria-label="${d === 'veg' ? 'Vegetarian' : 'Non vegetarian'}"></i>` : '';
+let filter = 'all', links = [], secs = [], active = -1, lock = 0, lockT = 0, noClick = false;
+
+/* ---------- content ---------- */
+function render() {
+  const term = q.value.trim().toLowerCase();
+  let html = '', nav = '', kept = 0, lastG = '';
+  DATA.forEach(([title, items], ci) => {
+    let rows = '';
+    for (const [name, vs, diet, note, img] of items) {
+      let v = vs;
+      if (filter !== 'all') {
+        if (diet === 'both') v = vs.filter(x => x[2] === filter);
+        else if (diet !== filter) continue;
+      }
+      if (!v.length) continue;
+      if (term && !(name + ' ' + vs.map(x => x[0]).join(' ') + ' ' + title).toLowerCase().includes(term)) continue;
+      const price = v.length === 1 && v[0][1] === null
+        ? '<div><span class="tbc">price to be confirmed</span></div>'
+        : v.map(x => `<div>${x[0] ? `<small>${esc(x[0])}</small>` : ''}${x[1] === null ? '<span class="tbc">tbc</span>' : `<span>${fmt(x[1])}</span>`}</div>`).join('');
+      rows += `<div class="item"><div class="nm">${diet === 'both' ? '' : mark(diet)}<span>${esc(name)}</span></div>${note ? `<p class="note">${esc(note)}</p>` : ''}<div class="pr">${price}</div><div class="art" aria-hidden="true"${img ? ` style="background-image:url('${esc(img)}')"` : ''}></div></div>`;
+    }
+    if (!rows) return;
+    const g = ci < KITCHEN ? 'Kitchen' : 'Drinks';
+    if (g !== lastG) { nav += `<div class="grp">${g}</div>`; lastG = g; }
+    kept++;
+    const id = slug(title);
+    html += `<section class="cat" id="${id}"><h2>${esc(title)}</h2>${rows}</section>`;
+    nav += `<a href="#${id}" draggable="false">${esc(title)}</a>`;
+  });
+  menu.innerHTML = html || '<p class="empty">No dishes match that search. Try another word or clear the filter.</p>';
+  rail.querySelectorAll('a,.grp').forEach(n => n.remove());
+  rail.insertAdjacentHTML('beforeend', nav);
+  links = [...rail.querySelectorAll('a')];
+  secs = [...menu.querySelectorAll('section')];
+  active = -1;
+  if (links.length) setActive(pick(), {snap: true});
+}
+
+/* ---------- spring physics for category indicator ---------- */
+const S = {p: 0, s: 34, v: 0, tp: 0, ts: 34, z: 1, r: 0.35, raf: 0, last: 0};
+function paint() {
+  if (mq.matches) {
+    thumb.style.transform = `translateX(${S.p}px)`;
+    thumb.style.width = S.s + 'px';
+    thumb.style.height = '';
+  } else {
+    thumb.style.transform = `translateY(${S.p}px)`;
+    thumb.style.height = S.s + 'px';
+    thumb.style.width = '';
+  }
+}
+function tick(t) {
+  const dt = Math.min((t - S.last) / 1000, 0.032);
+  S.last = t;
+  const w = 2 * Math.PI / S.r, k = w * w, c = 2 * S.z * w, n = 4, h = dt / n;
+  for (let i = 0; i < n; i++) {
+    S.v += (-k * (S.p - S.tp) - c * S.v) * h;
+    S.p += S.v * h;
+  }
+  S.s += (S.ts - S.s) * Math.min(1, dt * 18);
+  if (Math.abs(S.p - S.tp) < 0.1 && Math.abs(S.v) < 0.5 && Math.abs(S.ts - S.s) < 0.1) {
+    S.p = S.tp; S.s = S.ts; S.v = 0; S.raf = 0; paint(); return;
+  }
+  paint();
+  S.raf = requestAnimationFrame(tick);
+}
+function springTo(p, s, vel, z) {
+  S.tp = p; S.ts = s; S.z = z || 1; if (vel != null) S.v = vel;
+  if (reduce.matches) { S.p = p; S.s = s; S.v = 0; paint(); return; }
+  if (!S.raf) { S.last = performance.now(); S.raf = requestAnimationFrame(tick); }
+}
+
+/* ---------- rail geometry & scrollspy ---------- */
+const geo = i => {
+  const l = links[i];
+  if (!l) return [0, 34];
+  return mq.matches ? [l.offsetLeft, l.offsetWidth] : [l.offsetTop, l.offsetHeight];
+};
+const off = () => mq.matches ? (side.offsetHeight + 72) : 96;
+const pick = () => {
+  const y = off() + 8;
+  let k = 0;
+  secs.forEach((s, i) => {
+    if (s.getBoundingClientRect().top <= y) k = i;
+  });
+  return k;
+};
+function nearest(pos) {
+  let b = 0, d = 1e9;
+  links.forEach((_, i) => {
+    const [p, s] = geo(i), m = Math.abs(pos - (p + s / 2));
+    if (m < d) { d = m; b = i; }
+  });
+  return b;
+}
+function reveal(i) {
+  const l = links[i];
+  if (!l) return;
+  if (mq.matches) {
+    rail.scrollTo({left: l.offsetLeft - (rail.clientWidth - l.offsetWidth) / 2, behavior: 'smooth'});
+  } else {
+    const t = l.offsetTop, b = t + l.offsetHeight;
+    if (t < rail.scrollTop + 8) rail.scrollTo({top: Math.max(0, t - 48), behavior: 'smooth'});
+    else if (b > rail.scrollTop + rail.clientHeight - 8) rail.scrollTo({top: b - rail.clientHeight + 48, behavior: 'smooth'});
+  }
+}
+function setActive(i, o = {}) {
+  if (i < 0 || !links[i]) return;
+  if (i !== active) {
+    links[active]?.removeAttribute('aria-current');
+    links[i].setAttribute('aria-current', 'true');
+    active = i;
+    if (!o.drag) reveal(i);
+  }
+  if (o.drag) return;
+  const [p, s] = geo(i);
+  if (o.snap) { S.p = S.tp = p; S.s = S.ts = s; S.v = 0; paint(); }
+  else springTo(p, s, o.vel, o.z);
+}
+function goTo(i, instant) {
+  if (!secs[i]) return;
+  const top = secs[i].getBoundingClientRect().top + scrollY - off();
+  scrollTo({top, behavior: instant || reduce.matches ? 'instant' : 'smooth'});
+}
+function hold(ms = 900) { lock = 1; clearTimeout(lockT); lockT = setTimeout(() => lock = 0, ms); }
+addEventListener('scrollend', () => { clearTimeout(lockT); lockT = setTimeout(() => lock = 0, 80); });
+let tk = 0;
+addEventListener('scroll', () => {
+  if (lock || tk || !links.length) return;
+  tk = 1;
+  requestAnimationFrame(() => { tk = 0; setActive(pick()); });
+}, {passive: true});
+
+rail.addEventListener('click', e => {
+  const a = e.target.closest('a');
+  if (!a) return;
+  e.preventDefault();
+  if (noClick) return;
+  const i = links.indexOf(a);
+  hold();
+  setActive(i);
+  goTo(i);
+});
+addEventListener('resize', () => links.length && setActive(active, {snap: true}));
+mq.addEventListener('change', () => links.length && setActive(active, {snap: true}));
+
+/* ---------- drag thumb physics on desktop rail ---------- */
+let dr = null;
+const rubber = o => (o * 60 * 0.55) / (60 + 0.55 * o);
+const project = v => (v / 1000) * 0.99 / (1 - 0.99);
+function dragTo(y, t) {
+  const r = rail.getBoundingClientRect(), cy = y - r.top + rail.scrollTop;
+  let p = cy - dr.off;
+  const lo = geo(0)[0], hi = geo(links.length - 1)[0];
+  if (p < lo) p = lo - rubber(lo - p);
+  else if (p > hi) p = hi + rubber(p - hi);
+  S.p = S.tp = p; S.v = 0; paint();
+  if (t) { dr.h.push({t, p}); if (dr.h.length > 6) dr.h.shift(); }
+  const i = nearest(p + S.s / 2);
+  if (i !== active) { setActive(i, {drag: 1}); hold(300); goTo(i, true); }
+  dr.auto = y - r.top < 36 ? -1 : y - r.top > r.height - 36 ? 1 : 0;
+}
+function loop() {
+  if (!dr || !dr.on) return;
+  if (dr.auto) { rail.scrollTop += dr.auto * 8; dragTo(dr.y); }
+  requestAnimationFrame(loop);
+}
+rail.addEventListener('pointerdown', e => {
+  const a = e.target.closest('a');
+  if (!a || mq.matches || e.button || a !== links[active] || e.pointerType === 'touch') return;
+  dr = {id: e.pointerId, y0: e.clientY, y: e.clientY, on: false, h: [], off: 0, auto: 0};
+  a.setPointerCapture(e.pointerId);
+});
+rail.addEventListener('pointermove', e => {
+  if (!dr || e.pointerId !== dr.id) return;
+  dr.y = e.clientY;
+  if (!dr.on) {
+    if (Math.abs(e.clientY - dr.y0) < 6) return;
+    dr.on = true; rail.classList.add('dragging');
+    if (S.raf) cancelAnimationFrame(S.raf); S.raf = 0;
+    dr.off = e.clientY - rail.getBoundingClientRect().top + rail.scrollTop - S.p;
+    requestAnimationFrame(loop);
+  }
+  dragTo(e.clientY, e.timeStamp);
+});
+function release(e) {
+  if (!dr || e.pointerId !== dr.id) return;
+  const d = dr; dr = null; rail.classList.remove('dragging');
+  if (!d.on) return;
+  noClick = true; setTimeout(() => noClick = false, 0);
+  const h = d.h; let v = 0;
+  if (h.length > 1) { const a = h[0], b = h[h.length - 1]; v = (b.p - a.p) / Math.max(1, b.t - a.t) * 1000; }
+  const lo = 0, hi = links.length - 1, i = Math.min(hi, Math.max(lo, nearest(S.p + project(v) + S.s / 2)));
+  active = -1; setActive(i, {vel: v, z: Math.abs(v) > 300 ? 0.8 : 1});
+  hold(); goTo(i);
+}
+rail.addEventListener('dragstart', e => e.preventDefault());
+rail.addEventListener('pointerup', release);
+rail.addEventListener('pointercancel', release);
+
+/* ---------- controls ---------- */
+seg.querySelectorAll('button').forEach((b, i) => b.addEventListener('click', () => {
+  filter = b.dataset.f;
+  seg.style.setProperty('--i', i);
+  seg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  render();
+}));
+q.addEventListener('input', render);
+render();
+
+/* ---------- super hover: active row follows the pointer AND the scroll ---------- */
+(() => {
+  let cur = null, pt = null, raf = 0;
+  const header = document.querySelector('.site-header');
+  const place = row => {
+    const art = row.querySelector('.art');
+    if (!art) return;
+    const h = art.offsetHeight || 160;
+    const clipsTop = row.getBoundingClientRect().bottom - h < header.getBoundingClientRect().bottom + 8;
+    row.toggleAttribute('data-art-below', clipsTop);
+  };
+  const set = row => {
+    if (row !== cur) {
+      cur?.removeAttribute('data-hover');
+      cur = row;
+      cur?.setAttribute('data-hover', '');
+    }
+    if (cur) place(cur);
+  };
+  const rowAt = (x, y) => document.elementFromPoint(x, y)?.closest('.item') || null;
+  const sync = () => {
+    raf = 0;
+    set(pt ? rowAt(pt.x, pt.y) : null);
+  };
+  const queue = () => { if (!raf) raf = requestAnimationFrame(sync); };
+
+  menu.addEventListener('pointermove', e => {
+    if (e.pointerType === 'touch') return;
+    pt = {x: e.clientX, y: e.clientY};
+    set(rowAt(pt.x, pt.y));
+  }, {passive: true});
+  menu.addEventListener('pointerleave', () => { pt = null; set(null); });
+  addEventListener('scroll', queue, {passive: true});
+  addEventListener('blur', () => { pt = null; set(null); });
+  /* rows are rebuilt by render(); drop the stale reference and re-resolve */
+  new MutationObserver(() => { cur = null; queue(); }).observe(menu, {childList: true});
+})();
+</script>
+<script defer src="/assets/footer-bundle.js"></script>
+
+<!-- Floating Vault Navigation Pill -->
+<div style="position:fixed; top:1.25rem; right:1.25rem; z-index:999999; display:flex; gap:0.6rem; align-items:center; background:rgba(10,12,18,0.85); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.18); border-radius:9999px; padding:0.4rem 0.95rem; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:13px; font-weight:500; color:#fff; box-shadow:0 12px 32px rgba(0,0,0,0.5); pointer-events:auto;">
+  <a href="/" style="color:#cbd5e1; text-decoration:none; display:flex; align-items:center; gap:0.35rem; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#cbd5e1'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    <span>Components</span>
+  </a>
+  <span style="color:rgba(255,255,255,0.25);">|</span>
+  <a href="https://github.com/revanthlol/components" target="_blank" style="color:#38bdf8; text-decoration:none; display:flex; align-items:center; gap:0.3rem; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+    <span>GitHub</span>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+  </a>
+</div>
+
+</body>
+</html>

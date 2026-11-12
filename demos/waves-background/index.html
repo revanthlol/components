@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waves Background Demo | Components Vault</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body, html { width:100%; height:100%; overflow:hidden; background:#090a0f; font-family:-apple-system,BlinkMacSystemFont,sans-serif; }
+    #container { position:relative; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+    svg { position:absolute; inset:0; width:100%; height:100%; }
+    .pointer { position:absolute; width:12px; height:12px; background:#38bdf8; border-radius:50%; pointer-events:none; box-shadow:0 0 20px #38bdf8; transform:translate(-50%,-50%); transition:transform 0.05s linear; }
+    .hero-text { position:relative; z-index:10; text-align:center; color:#fff; pointer-events:none; }
+    .hero-text h1 { font-size:3.5rem; font-weight:800; letter-spacing:-0.03em; margin-bottom:0.75rem; background:linear-gradient(135deg, #fff 30%, #94a3b8 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .hero-text p { font-size:1.15rem; color:#64748b; font-weight:400; max-width:600px; margin:0 auto; line-height:1.6; }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div class="hero-text">
+      <h1>Procedural Simplex Waves</h1>
+      <p>Interactive velocity-reactive vector field driven by multi-frequency 2D noise.</p>
+    </div>
+    <svg id="svg"></svg>
+    <div id="pointer" class="pointer"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/simplex-noise@4.0.1/dist/esm/simplex-noise.js" type="module"></script>
+  <script type="module">
+    import { createNoise2D } from 'https://cdn.jsdelivr.net/npm/simplex-noise@4.0.1/dist/esm/simplex-noise.js';
+    const noise = createNoise2D();
+    const container = document.getElementById('container');
+    const svg = document.getElementById('svg');
+    const pointer = document.getElementById('pointer');
+
+    const mouse = { x: -100, y: -100, lx: 0, ly: 0, sx: 0, sy: 0, v: 0, vs: 0, a: 0 };
+    let paths = [];
+    let lines = [];
+    const strokeColor = 'rgba(56, 189, 248, 0.45)';
+
+    function setSizeAndLines() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      svg.setAttribute('viewBox', );
+      
+      paths.forEach(p => p.remove());
+      paths = [];
+      lines = [];
+
+      const xGap = 12;
+      const yGap = 12;
+      const totalLines = Math.ceil((width + 200) / xGap);
+      const totalPoints = Math.ceil((height + 30) / yGap);
+      const xStart = (width - xGap * totalLines) / 2;
+      const yStart = (height - yGap * totalPoints) / 2;
+
+      for (let i = 0; i < totalLines; i++) {
+        const points = [];
+        for (let j = 0; j < totalPoints; j++) {
+          points.push({
+            x: xStart + xGap * i,
+            y: yStart + yGap * j,
+            wave: { x: 0, y: 0 },
+            cursor: { x: 0, y: 0, vx: 0, vy: 0 }
+          });
+        }
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', strokeColor);
+        path.setAttribute('stroke-width', '1.2');
+        svg.appendChild(path);
+        paths.push(path);
+        lines.push(points);
+      }
+    }
+
+    window.addEventListener('resize', setSizeAndLines);
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    function movePoints(time) {
+      lines.forEach((points) => {
+        points.forEach((p) => {
+          const move = noise((p.x + time * 0.006) * 0.003, (p.y + time * 0.003) * 0.002) * 8;
+          p.wave.x = Math.cos(move) * 14;
+          p.wave.y = Math.sin(move) * 8;
+
+          const dx = p.x - mouse.sx;
+          const dy = p.y - mouse.sy;
+          const d = Math.hypot(dx, dy);
+          const l = Math.max(160, mouse.vs);
+
+          if (d < l) {
+            const s = 1 - d / l;
+            const f = Math.cos(d * 0.001) * s;
+            p.cursor.vx += Math.cos(mouse.a) * f * l * mouse.vs * 0.00035;
+            p.cursor.vy += Math.sin(mouse.a) * f * l * mouse.vs * 0.00035;
+          }
+
+          p.cursor.vx += (0 - p.cursor.x) * 0.01;
+          p.cursor.vy += (0 - p.cursor.y) * 0.01;
+          p.cursor.vx *= 0.95;
+          p.cursor.vy *= 0.95;
+          p.cursor.x += p.cursor.vx;
+          p.cursor.y += p.cursor.vy;
+        });
+      });
+    }
+
+    function drawLines() {
+      lines.forEach((points, i) => {
+        if (!points.length) return;
+        let d = ;
+        for (let j = 1; j < points.length; j++) {
+          const p = points[j];
+          d += ;
+        }
+        paths[i].setAttribute('d', d);
+      });
+    }
+
+    function tick(time) {
+      mouse.sx += (mouse.x - mouse.sx) * 0.1;
+      mouse.sy += (mouse.y - mouse.sy) * 0.1;
+      const dx = mouse.x - mouse.lx;
+      const dy = mouse.y - mouse.ly;
+      mouse.vs += (Math.hypot(dx, dy) - mouse.vs) * 0.1;
+      mouse.lx = mouse.x;
+      mouse.ly = mouse.y;
+      mouse.a = Math.atan2(dy, dx);
+
+      pointer.style.transform = ;
+
+      movePoints(time);
+      drawLines();
+      requestAnimationFrame(tick);
+    }
+
+    setSizeAndLines();
+    requestAnimationFrame(tick);
+  </script>
+<!-- Floating Vault Navigation Pill -->
+<div style="position:fixed; top:1.25rem; right:1.25rem; z-index:999999; display:flex; gap:0.6rem; align-items:center; background:rgba(10,12,18,0.85); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.18); border-radius:9999px; padding:0.4rem 0.95rem; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:13px; font-weight:500; color:#fff; box-shadow:0 12px 32px rgba(0,0,0,0.5); pointer-events:auto;">
+  <a href="/" style="color:#cbd5e1; text-decoration:none; display:flex; align-items:center; gap:0.35rem; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#cbd5e1'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    <span>Components</span>
+  </a>
+  <span style="color:rgba(255,255,255,0.25);">|</span>
+  <a href="https://github.com/revanthlol/components" target="_blank" style="color:#38bdf8; text-decoration:none; display:flex; align-items:center; gap:0.3rem; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+    <span>GitHub</span>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+  </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theme Switcher</title>
+<meta name="description" content="System, light and dark theme switcher component in a single HTML file.">
+<link rel="icon" href="data:,">
+<script>
+  /*
+   * ONE PLACE TO ADAPT TO YOUR SITE.
+   * apply(mode, resolved) is the only code that touches your page's theme.
+   *   mode:     "system" | "light" | "dark"   (what the user picked)
+   *   resolved: "light" | "dark"              (what is actually showing)
+   * It runs on load (before first paint) and on every switch.
+   * It must change the DOM synchronously (no await, no fetch).
+   *
+   * Other strategies:
+   *   Tailwind class:  document.documentElement.classList.toggle("dark", resolved === "dark");
+   *   color-scheme:    document.documentElement.style.colorScheme = resolved;
+   *   body attribute:  document.body.dataset.theme = resolved;
+   */
+  window.ThemeSwitcherConfig = {
+    key: "theme",
+    apply: function (mode, resolved) {
+      var r = document.documentElement;
+      if (mode === "system") r.removeAttribute("data-theme");
+      else r.setAttribute("data-theme", mode);
+    }
+  };
+
+  (function () {
+    var c = window.ThemeSwitcherConfig, m = null;
+    try { m = localStorage.getItem(c.key); } catch (e) {}
+    if (m !== "light" && m !== "dark") m = "system";
+    var res = m === "system"
+      ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : m;
+    c.apply(m, res);
+  })();
+</script>
+<style>
+  /* ---- Component tokens: scoped to the switcher, independent of your site ---- */
+  .ts {
+    --ts-bg: #fff;
+    --ts-border: #d9d9d9;
+    --ts-fg: #000;
+    --ts-active: #f2f2f2;
+  }
+  .ts[data-resolved="dark"] {
+    --ts-bg: #0a0a0a;
+    --ts-border: #333;
+    --ts-fg: #fff;
+    --ts-active: #262626;
+  }
+  @media (prefers-color-scheme: dark) {
+    .ts:not([data-resolved]) {
+      --ts-bg: #0a0a0a;
+      --ts-border: #333;
+      --ts-fg: #fff;
+      --ts-active: #262626;
+    }
+  }
+
+  /* ---- Demo page only: delete this block in your project ---- */
+  :root { --demo-bg: #fff; --demo-fg: #000; color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --demo-bg: #0a0a0a; --demo-fg: #fff; }
+  }
+  :root[data-theme="light"] { color-scheme: light; }
+  :root[data-theme="dark"] { --demo-bg: #0a0a0a; --demo-fg: #fff; color-scheme: dark; }
+  html, body { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after { box-sizing: inherit; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: var(--demo-bg);
+    color: var(--demo-fg);
+    font-family: Inter, system-ui, sans-serif;
+  }
+  .demo-scale { transform: scale(2); }
+
+  /* ---- Component ---- */
+  .ts {
+    display: inline-flex;
+    position: relative;
+    padding: 4px;
+    gap: 0;
+    background: var(--ts-bg);
+    border: 1px solid var(--ts-border);
+    border-radius: 50px;
+  }
+  .ts__btn {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    margin: 0;
+    background: transparent;
+    border: none;
+    border-radius: 48px;
+    cursor: pointer;
+    color: #888;
+    font-size: 12px;
+    transition: color 0.2s;
+  }
+  .ts__btn.is-active { color: var(--ts-fg); }
+  .ts__btn:focus-visible { outline: 2px solid var(--ts-fg); outline-offset: 2px; }
+
+  /* Sliding pill: moves by whole-slot steps via --i (0, 1, 2) */
+  .ts__pill {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc((100% - 8px) / 3);
+    z-index: 0;
+    background: var(--ts-active);
+    border: 1px solid var(--ts-border);
+    border-radius: 48px;
+    transform: translateX(calc(var(--i, 0) * 100%));
+    pointer-events: none;
+  }
+  .ts--ready .ts__pill {
+    /* Fallback: single overshoot curve for browsers without linear() */
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* Real damped spring (zeta 0.55), overshoots ~12% then settles */
+    transition-timing-function: linear(0, 0.033, 0.117, 0.235, 0.37, 0.51, 0.644, 0.766, 0.872, 0.958, 1.025, 1.073, 1.105, 1.121, 1.126, 1.122, 1.111, 1.097, 1.08, 1.062, 1.045, 1.029, 1.016, 1.005, 0.997, 0.991, 0.987, 0.985, 0.984, 0.985, 0.986, 0.988, 0.99, 0.992, 0.994, 0.996, 1);
+    transition-duration: 0.7s;
+  }
+  .ts__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.2em;
+    height: 1.2em;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .ts__btn.is-active .ts__icon { opacity: 1; }
+  .ts__icon svg { display: block; width: 100%; height: 100%; }
+
+  /* ---- Page transition (View Transitions API): circular reveal ---- */
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+  ::view-transition-old(root) { z-index: 1; }
+  ::view-transition-new(root) { z-index: 2; }
+
+  /* Keep the switcher live and on top so its own spring plays during the reveal */
+  .ts.ts--vt { view-transition-name: theme-switcher; }
+  ::view-transition-group(theme-switcher) { animation: none; z-index: 3; }
+  ::view-transition-old(theme-switcher) { display: none; }
+  ::view-transition-new(theme-switcher) { animation: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ts__btn, .ts__icon, .ts--ready .ts__pill { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="demo-scale">
+    <!-- Copy this block anywhere. Multiple instances stay in sync. -->
+    <div class="ts" data-theme-switcher role="group" aria-label="Theme">
+      <span class="ts__pill" aria-hidden="true"></span>
+      <button type="button" class="ts__btn" data-mode="system" aria-label="System theme" aria-pressed="false">
+        <span class="ts__icon"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M28,4H4A2,2,0,0,0,2,6V22a2,2,0,0,0,2,2h8v4H8v2H24V28H20V24h8a2,2,0,0,0,2-2V6A2,2,0,0,0,28,4ZM18,28H14V24h4Zm10-6H4V6H28Z"/></svg></span>
+      </button>
+      <button type="button" class="ts__btn" data-mode="light" aria-label="Light theme" aria-pressed="false">
+        <span class="ts__icon"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+          <path d="M15 2H17V7H15z"/>
+          <path d="M21.668 6.854H26.626V8.854H21.668z" transform="rotate(-45 24.147 7.853)"/>
+          <path d="M25 15H30V17H25z"/>
+          <path d="M23.147 21.668H25.147V26.626H23.147z" transform="rotate(-45 24.147 24.146)"/>
+          <path d="M15 25H17V30H15z"/>
+          <path d="M5.375 23.147H10.333V25.147H5.375z" transform="rotate(-45 7.853 24.146)"/>
+          <path d="M2 15H7V17H2z"/>
+          <path d="M6.854 5.375H8.854V10.333H6.854z" transform="rotate(-45 7.854 7.853)"/>
+          <path d="M16,12a4,4,0,1,1-4,4,4.0045,4.0045,0,0,1,4-4m0-2a6,6,0,1,0,6,6,6,6,0,0,0-6-6Z"/>
+        </svg></span>
+      </button>
+      <button type="button" class="ts__btn" data-mode="dark" aria-label="Dark theme" aria-pressed="false">
+        <span class="ts__icon"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M13.5025,5.4136A15.0755,15.0755,0,0,0,25.096,23.6082a11.1134,11.1134,0,0,1-7.9749,3.3893c-.1385,0-.2782.0051-.4178,0A11.0944,11.0944,0,0,1,13.5025,5.4136M14.98,3a1.0024,1.0024,0,0,0-.1746.0156A13.0959,13.0959,0,0,0,16.63,28.9973c.1641.006.3282,0,.4909,0a13.0724,13.0724,0,0,0,10.702-5.5556,1.0094,1.0094,0,0,0-.7833-1.5644A13.08,13.08,0,0,1,15.8892,4.38,1.0149,1.0149,0,0,0,14.98,3Z"/></svg></span>
+      </button>
+    </div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var cfg = window.ThemeSwitcherConfig;
+  var ORDER = ["system", "light", "dark"]; /* must match button order in markup */
+  var switchers = document.querySelectorAll("[data-theme-switcher]");
+  var mq = matchMedia("(prefers-color-scheme: dark)");
+  var current = read();
+
+  function read() {
+    try {
+      var v = localStorage.getItem(cfg.key);
+      return v === "light" || v === "dark" ? v : "system";
+    } catch (e) { return "system"; }
+  }
+
+  function resolve(mode) {
+    return mode === "system" ? (mq.matches ? "dark" : "light") : mode;
+  }
+
+  /* Update the switcher UI (pill, pressed state, its own colors) */
+  function paint(mode) {
+    var idx = ORDER.indexOf(mode), res = resolve(mode);
+    switchers.forEach(function (el) {
+      el.style.setProperty("--i", idx);
+      el.setAttribute("data-resolved", res);
+      el.querySelectorAll(".ts__btn").forEach(function (b) {
+        var on = b.dataset.mode === mode;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-pressed", String(on));
+      });
+    });
+  }
+
+  /* Run the site's own apply() and tell the page about it */
+  function commit(mode) {
+    var res = resolve(mode);
+    cfg.apply(mode, res);
+    document.dispatchEvent(new CustomEvent("themechange", { detail: { mode: mode, resolved: res } }));
+  }
+
+  function set(mode, originEl) {
+    var before = resolve(current);
+    current = mode;
+    try {
+      if (mode === "system") localStorage.removeItem(cfg.key);
+      else localStorage.setItem(cfg.key, mode);
+    } catch (e) {}
+
+    var visualChange = before !== resolve(mode);
+    var canAnimate = visualChange
+      && document.startViewTransition
+      && !matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!canAnimate) { paint(mode); commit(mode); return; }
+
+    /* Circle origin = center of the clicked button */
+    var r = originEl.getBoundingClientRect();
+    var x = r.left + r.width / 2, y = r.top + r.height / 2;
+    var radius = Math.hypot(
+      Math.max(x, innerWidth - x),
+      Math.max(y, innerHeight - y)
+    );
+
+    var host = originEl.closest("[data-theme-switcher]");
+    host.classList.add("ts--vt");
+
+    var vt = document.startViewTransition(function () {
+      paint(mode);
+      commit(mode);
+    });
+
+    vt.ready.then(function () {
+      document.documentElement.animate(
+        { clipPath: ["circle(0px at " + x + "px " + y + "px)", "circle(" + radius + "px at " + x + "px " + y + "px)"] },
+        { duration: 650, easing: "cubic-bezier(0.4, 0, 0.2, 1)", pseudoElement: "::view-transition-new(root)" }
+      );
+    }).catch(function () {});
+
+    vt.finished.finally(function () { host.classList.remove("ts--vt"); });
+  }
+
+  switchers.forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      var b = e.target.closest(".ts__btn");
+      if (b && b.dataset.mode !== current) set(b.dataset.mode, b);
+    });
+  });
+
+  /* OS theme flips while on "system": re-run apply (matters for class strategies) */
+  mq.addEventListener("change", function () {
+    if (current === "system") { paint(current); commit(current); }
+  });
+
+  /* Other tabs */
+  window.addEventListener("storage", function (e) {
+    if (e.key === cfg.key || e.key === null) {
+      current = read();
+      paint(current);
+      commit(current);
+    }
+  });
+
+  /* Initial state: head script already applied the theme, just sync the UI */
+  paint(current);
+  document.dispatchEvent(new CustomEvent("themechange", { detail: { mode: current, resolved: resolve(current) } }));
+
+  /* Enable pill motion only after the initial position is painted */
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      switchers.forEach(function (el) { el.classList.add("ts--ready"); });
+    });
+  });
+})();
+</script>
+
+<!-- Floating Vault Navigation Pill -->
+<div style="position:fixed; top:1.25rem; right:1.25rem; z-index:999999; display:flex; gap:0.6rem; align-items:center; background:rgba(10,12,18,0.85); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.18); border-radius:9999px; padding:0.4rem 0.95rem; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:13px; font-weight:500; color:#fff; box-shadow:0 12px 32px rgba(0,0,0,0.5); pointer-events:auto;">
+  <a href="/" style="color:#cbd5e1; text-decoration:none; display:flex; align-items:center; gap:0.35rem; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#cbd5e1'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    <span>Components</span>
+  </a>
+  <span style="color:rgba(255,255,255,0.25);">|</span>
+  <a href="https://github.com/revanthlol/components" target="_blank" style="color:#38bdf8; text-decoration:none; display:flex; align-items:center; gap:0.3rem; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+    <span>GitHub</span>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+  </a>
+</div>
+
+</body>
+</html>
